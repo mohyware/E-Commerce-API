@@ -1,35 +1,28 @@
-# To Do List API
+# E-Commerce-APIs
 ## Overview
-This project aims to create a robust and efficient RESTful API for managing to-do lists. It provides users with the ability to create, read, update, and delete tasks, as well as manage their user accounts.
-## Key Features:
-- User authentication: Secure user registration and login mechanisms using JSON Web Tokens (JWT).
-- Task management: Create, read, update, and delete tasks.
-- Data storage: Store user and task data in a MongoDB database.
-- Error handling: Provide informative error messages and handle exceptions gracefully.
-- Security: Implement measures to protect the API and user data.
-- Swagger integration: Use Swagger to provide comprehensive API documentation, making it easy for developers to understand and interact with the API.
-# How to run this project
-1. Clone this repository
-2. Run `npm install`
-3. Create a `.env` file and add the following:
-```
-PORT=3000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret   
-JWT_LIFETIME=60d
-```
-4. Run `node app`
-5. Test the API using Postman or any API testing tool
+This project is a web application designed for managing an e-commerce platform, featuring user and admin roles. It includes functionalities for product and category management, allowing users to browse products, while admins can create, update, and delete entries. The application supports pagination and sorting for efficient data handling, along with RESTful API endpoints for seamless interaction. The project aims to provide a robust and user-friendly experience for both end-users and administrators.
+## Current Status
+This project is currently in development. Some features may not be fully implemented or tested. Contributions and feedback are welcome!
+### Completed Features
+- User registration and login
+- Product management routes
+- Category management routes
+### Upcoming Features
+- Handle cart and cart items
+- Admin authentication management
+- Ability for users to checkout and pay for products using Stripe
+- Swagger API documentation for easy reference
+- Implement Redis for caching to improve performance
+- Improved error handling
+- Unit and integration tests
 
-## API Endpoints
-### Auth
-- POST /api/user/register
-- POST /api/user/login
+## Technologies Used
+- Node.js
+- Express.js
+- Sequelize
+- PostgreSQL (or another database)
+- Redis (for caching)
+- Multer (for file uploads)
 
-### Todos
-- POST /api/todo
-- PUT /api/todo/:id
-- DELETE /api/todo/:id
-- GET /api/todo
-
+## Project Url
 https://roadmap.sh/projects/todo-list-api
