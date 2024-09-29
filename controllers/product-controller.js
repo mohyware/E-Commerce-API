@@ -1,39 +1,50 @@
-const { Product } = require('../models/product-model');
 const { Op } = require('sequelize');
-const { NotFoundError } = require('../errors')
-
+const { NotFoundError, BadRequestError } = require('../errors')
+const Product = require('../models/product-model');
 
 const getAllProducts = async (req, res) => {
-    const { page, limit, search } = req.query;
-
-    const where = {};
-    if (search) {
-        where.name = { [Op.iLike]: `%${search}%` };
-    }
+    const { page, limit, search, categoryId, sortBy = 'id', sortOrder = 'ASC' } = req.query;
 
     const options = {
-        where,
-        offset: (page - 1) * limit,
-        limit: parseInt(limit) || 10,
+        order: [[sortBy, sortOrder.toUpperCase()]],
+        where: {},
     };
+
+    if (search) {
+        options.where = { name: { [Op.iLike]: `%${search}%` } };
+    }
+
+    if (categoryId === '-1') {
+        options.where.categoryId = { [Op.is]: null };
+    } else if (categoryId) {
+        options.where.categoryId = categoryId;
+    }
+
+    if (page && limit) {
+        options.offset = (page - 1) * parseInt(limit);
+        options.limit = parseInt(limit) || 10;
+    }
 
     const products = await Product.findAll(options);
     const count = await Product.count(options);
 
-    if (!products) {
+    if (!count) {
         throw new NotFoundError('No products was found')
     }
 
     res.json({
         products,
-        totalPages: Math.ceil(count / options.limit),
-        currentPage: page,
+        totalPages: Math.ceil(count / options.limit) || 1,
+        currentPage: page || 1,
     });
 
 };
 
 const getProduct = async (req, res) => {
-    const product = await Product.findByPk(req.params.id);
+    const {
+        params: { productId: productId },
+    } = req
+    const product = await Product.findByPk(productId);
     if (!product) {
         throw new NotFoundError('product not found')
     }
@@ -41,43 +52,37 @@ const getProduct = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-    try {
-        const newProduct = await Product.create(req.body);
-        res.status(201).json(newProduct);
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: 'Invalid product data' });
-    }
+    const newProduct = await Product.create(req.body);
+    res.status(201).json(newProduct);
 };
 
 const updateProduct = async (req, res) => {
-    try {
-        const product = await Product.findByPk(req.params.id);
-        if (!product) {
-            throw new NotFoundError('product not found')
-        }
+    const {
+        body: { name, description, price, stock, categoryId },
+        params: { productId: productId },
+    } = req
 
-        await product.update(req.body);
-        res.json(product);
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: 'Invalid product data' });
+    if (!name && !description && !price && !stock && !categoryId) {
+        throw new BadRequestError('You must provide a value for any field to proceed with the update');
     }
+    const product = await Product.findByPk(productId);
+    if (!product) {
+        throw new NotFoundError('product not found')
+    }
+    await product.update(req.body);
+    res.json({ message: "product updated successfully ", product });
 };
 
 const deleteProduct = async (req, res) => {
-    try {
-        const product = await Product.findByPk(req.params.id);
-        if (!product) {
-            throw new NotFoundError('product not found')
-        }
-
-        await product.destroy();
-        res.json({ message: 'Product deleted successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
+    const {
+        params: { productId: productId },
+    } = req
+    const product = await Product.findByPk(productId);
+    if (!product) {
+        throw new NotFoundError('product not found')
     }
+    await product.destroy();
+    res.json({ message: 'Product deleted successfully' });
 };
 
 module.exports = { getAllProducts, getProduct, createProduct, updateProduct, deleteProduct };

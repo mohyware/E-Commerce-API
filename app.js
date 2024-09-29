@@ -18,13 +18,13 @@ const app = express();
 const { connectPostgres } = require('./db/connect-postgres');
 const { syncDatabase } = require('./models/index')
 
-
-const connectDB = require('./db/connect-mongoose');
 const authenticateUser = require('./middleware/authentication');
 // routers
 const userRouter = require('./routes/user-route');
 const adminRouter = require('./routes/admin-route');
 const productRouter = require('./routes/product-route');
+const categoryRouter = require('./routes/category-route');
+
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
@@ -51,6 +51,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/product', productRouter);
+app.use('/api/v1/category', categoryRouter);
+
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

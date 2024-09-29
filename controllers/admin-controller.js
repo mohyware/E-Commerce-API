@@ -37,7 +37,7 @@ const updateUser = async (req, res, next) => {
         params: { userId: userId },
     } = req
     try {
-        const user = await User.findByPk(userId);
+        const user = await User.findByPk(`${userId}`);
 
         if (!user) {
             throw new NotFoundError('User not found')
