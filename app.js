@@ -24,6 +24,7 @@ const userRouter = require('./routes/user-route');
 const adminRouter = require('./routes/admin-route');
 const productRouter = require('./routes/product-route');
 const categoryRouter = require('./routes/category-route');
+const cartRouter = require('./routes/cart-route');
 
 
 // error handler
@@ -52,6 +53,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/product', productRouter);
 app.use('/api/v1/category', categoryRouter);
+app.use('/api/v1/cart/', authenticateUser, cartRouter);
 
 
 app.use(notFoundMiddleware);
