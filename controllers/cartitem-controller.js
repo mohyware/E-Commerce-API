@@ -12,7 +12,7 @@ const getCartItem = async (req, res) => {
     if (!cart) {
         throw new NotFoundError('NO associated Cart was found');
     }
-    cartId = cart.id
+    const cartId = cart.id
     const item = await CartItem.findOne({ where: { id: itemId, cartId } });
     if (!item) {
         throw new NotFoundError('Cart item not found');
@@ -28,7 +28,7 @@ const createCartItem = async (req, res) => {
     if (!cart) {
         throw new NotFoundError('NO associated Cart was found');
     }
-    cartId = cart.id
+    const cartId = cart.id
     const productId = req.body.productId
 
     if (!productId) {
@@ -38,6 +38,11 @@ const createCartItem = async (req, res) => {
 
     if (!product) {
         throw new NotFoundError('NO product was found with this id');
+    }
+    const existProduct = await CartItem.findOne({ where: { productId } });
+
+    if (existProduct) {
+        throw new BadRequestError('A cart item is already linked to this product. You can use the update option to change the quantity instead');
     }
 
     const newItem = await CartItem.create({ cartId, ...req.body });
@@ -54,7 +59,7 @@ const updateCartItem = async (req, res) => {
     if (!cart) {
         throw new NotFoundError('NO associated Cart was found');
     }
-    cartId = cart.id
+    const cartId = cart.id
 
     const item = await CartItem.findOne({ where: { id: itemId, cartId } });
     if (!item) {
@@ -78,7 +83,7 @@ const deleteCartItem = async (req, res) => {
     if (!cart) {
         throw new NotFoundError('NO associated Cart was found');
     }
-    cartId = cart.id
+    const cartId = cart.id
     const item = await CartItem.findOne({ where: { id: itemId, cartId } });
 
     if (!item) {

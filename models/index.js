@@ -8,7 +8,7 @@ const User = require("./user-model");
 Cart.hasMany(CartItem, { foreignKey: "cartId" });
 CartItem.belongsTo(Cart, { foreignKey: "cartId" });
 
-Product.hasMany(CartItem, { foreignKey: "productId" });
+Product.hasOne(CartItem, { foreignKey: "productId" });
 CartItem.belongsTo(Product, { foreignKey: "productId" });
 
 Category.hasMany(Product, { foreignKey: "categoryId" });

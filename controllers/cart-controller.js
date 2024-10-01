@@ -65,7 +65,7 @@ const deleteCart = async (req, res) => {
     if (!cart) {
         throw new NotFoundError('NO associated Cart was found');
     }
-    cartId = cart.id
+    const cartId = cart.id
     const result = await Cart.destroy({ where: { id: cartId } });
 
     await CartItem.destroy({ where: { cartId } });
