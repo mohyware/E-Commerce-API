@@ -1,5 +1,5 @@
 const User = require('../models/user-model')
-const { UnauthenticatedError } = require('../errors')
+const { UnauthorizedError } = require('../errors')
 
 const adminAuth = async (req, res, next) => {
     const {
@@ -7,11 +7,11 @@ const adminAuth = async (req, res, next) => {
     } = req;
     const user = await User.findByPk(userId);
 
-    if (user.userRole !== 'Admin') {
-        return UnauthenticatedError('Access denied. Admins only.');
+    if (user.role !== 'Admin') {
+        throw new UnauthorizedError('Access denied. Admins only.');
+    } else {
+        next()
     }
-
-    next()
 }
 
 module.exports = adminAuth
