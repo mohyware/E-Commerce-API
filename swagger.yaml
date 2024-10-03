@@ -1,0 +1,884 @@
+openapi: 3.0.3
+info:
+  title: E-Commerce API
+  description: A comprehensive API for managing eCommerce operations, including user authentication, product listings, categories, shopping cart management, and customer reviews. This API allows users to register, log in, manage their profiles, and interact with products. Admins can manage users and products, while customers can add items to their cart and submit reviews. The API supports functionalities such as retrieving products, managing categories, and tracking user interactions, ensuring a seamless shopping experience.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000
+tags:
+  - name: auth
+    description: User authentication operations
+  - name: user
+    description: Operations for logged-in users
+  - name: admin
+    description: Admin management operations
+  - name: product
+    description: Manage product listings
+  - name: category
+    description: Manage product categories
+  - name: cart
+    description: User cart management
+  - name: cart item
+    description: Manage cart items
+  - name: review
+    description: Manage product reviews
+paths:
+  /api/v1/user/register:
+    post:
+      tags:
+        - auth
+      summary: register
+      description: register
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: mohy@gmail.com
+                name:
+                  type: string
+                  example: mohy
+                password:
+                  type: string
+                  example: '123456'
+            examples:
+              register:
+                value:
+                  email: mohy@gmail.com
+                  name: mohy
+                  password: '123456'
+      responses:
+        '200':
+          description: ''
+  /api/v1/user/login:
+    post:
+      tags:
+        - auth
+      summary: login
+      description: login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: moaaz@gmail.com
+                password:
+                  type: string
+                  example: '123456'
+            examples:
+              login:
+                value:
+                  email: moaaz@gmail.com
+                  password: '123456'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /api/v1/user/:
+    get:
+      tags:
+        - user
+      summary: get user (logged in user)
+      description: get user
+      operationId: getUser
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+        - user
+      summary: update user (logged in user)
+      description: update user
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: mohy@gmail.com
+                name:
+                  type: string
+                  example: mohy
+                password:
+                  type: string
+                  example: '123456'
+            examples:
+              update user:
+                value:
+                  email: mohy@gmail.com
+                  name: mohy
+                  password: '123456'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - user
+      summary: delete user (logged in user)
+      description: delete user
+      operationId: deleteUser
+      responses:
+        '200':
+          description: ''
+  /api/v1/admin/{userId}:
+    parameters: 
+      - name: userId
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - admin
+      summary: get user
+      description: get user
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+        - admin
+      summary: update user
+      description: update user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  example: Admin
+            examples:
+              update user:
+                value:
+                  role: Admin
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - admin
+      summary: delete user
+      description: delete user
+      responses:
+        '200':
+          description: ''
+  /api/v1/product:
+    get:
+      tags:
+        - product
+      summary: get all products
+      description: get all products
+      operationId: getAllProducts
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: string
+            example: '20'
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: ''
+        - name: categoryId
+          in: query
+          schema:
+            type: string
+            example: ''
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            example: id
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+            example: DESC
+      responses:
+        '200':
+          description: ''
+      security:
+        - {}
+  /api/v1/product/{prodcutId}:
+    parameters: 
+    - name: prodcutId
+      in: path
+      description: prodcut id
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+        - product
+      summary: get product
+      description: get product
+      responses:
+        '200':
+          description: ''
+      security:
+        - {}
+    patch:
+      tags:
+        - product
+      summary: update product (admin auth)
+      description: update product (admin auth)
+      operationId: updateProductAdminAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: good gaming device
+                id:
+                  type: number
+                  example: 9
+                name:
+                  type: string
+                  example: ps5
+                price:
+                  type: string
+                  example: '40'
+                stock:
+                  type: number
+                  example: 21
+            examples:
+              update product (admin auth):
+                value:
+                  description: good gaming device
+                  id: 9
+                  name: ps5
+                  price: '40'
+                  stock: 21
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - product
+      summary: create product (admin auth)
+      description: create product (admin auth)
+      operationId: createProductAdminAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categoryId:
+                  type: number
+                  example: 1
+                description:
+                  type: string
+                  example: A high-end smartphone with a great camera.
+                name:
+                  type: string
+                  example: lenovo
+                price:
+                  type: string
+                  example: '699'
+                stock:
+                  type: string
+                  example: '50'
+            examples:
+              create product (admin auth):
+                value:
+                  categoryId: 1
+                  description: A high-end smartphone with a great camera.
+                  name: lenovo
+                  price: '699'
+                  stock: '50'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - product
+      summary: delete product (admin auth)
+      description: delete product (admin auth)
+      responses:
+        '200':
+          description: ''
+  /api/v1/category:
+    get:
+      tags:
+        - category
+      summary: get all category
+      description: get all category
+      operationId: getAllCategory
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: string
+            example: '10'
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: ''
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            example: ''
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+            example: DESC
+      responses:
+        '200':
+          description: ''
+      security:
+        - {}
+  /api/v1/category/{categoryId}:
+    parameters: 
+    - name: categoryId
+      in: path
+      description: category id
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+        - category
+      summary: get category
+      description: get category
+      operationId: getCategory
+      responses:
+        '200':
+          description: ''
+      security:
+        - {}
+    patch:
+      tags:
+        - category
+      summary: update category (admin auth)
+      description: update category (admin auth)
+      operationId: updateCategoryAdminAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: Latest gadgets and devices.
+                name:
+                  type: string
+                  example: Electronics
+            examples:
+              update category (admin auth):
+                value:
+                  description: Latest gadgets and devices.
+                  name: Electronics
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - category
+      summary: create category (admin auth)
+      description: create category (admin auth)
+      operationId: createCategoryAdminAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: Gear and equipment for sports and outdoor activities.
+                name:
+                  type: string
+                  example: Sports & Outdoors
+            examples:
+              create category (admin auth):
+                value:
+                  description: Gear and equipment for sports and outdoor activities.
+                  name: Sports & Outdoors
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - category
+      summary: delete category (admin auth)
+      description: delete category (admin auth)
+      operationId: deleteCategoryAdminAuth
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart/item/{itemId}:
+    parameters: 
+    - name: itemId
+      in: path
+      description: item id
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+        - cart item
+      summary: get item
+      description: get item
+      operationId: getItem
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+        - cart item
+      summary: update item
+      description: update item
+      operationId: updateItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: string
+                  example: '5'
+            examples:
+              update item:
+                value:
+                  quantity: '5'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - cart item
+      summary: delete item
+      description: delete item
+      operationId: deleteItem
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart/item/:
+    post:
+      tags:
+        - cart item
+      summary: create item
+      description: create item
+      operationId: createItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: number
+                  example: 9
+                quantity:
+                  type: number
+                  example: 10
+            examples:
+              create item:
+                value:
+                  productId: 9
+                  quantity: 10
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - cart item
+      summary: delete all items (clear cart)
+      description: delete all items (clear cart)
+      operationId: deleteAllItem
+      responses:
+        '200':
+          description: ''
+  /api/v1/cart:
+    get:
+      tags:
+        - cart
+      summary: get cart
+      description: get cart
+      operationId: getCart
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - cart
+      summary: create cart
+      description: create cart
+      operationId: createCart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              create cart:
+                value: {}
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - cart
+      summary: delete cart
+      description: delete cart
+      operationId: deleteCart
+      responses:
+        '200':
+          description: ''
+  /api/v1/review/:
+    post:
+      tags:
+        - review
+      summary: create review
+      description: create review
+      operationId: createReview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  example: no good(re4 refernce)
+                productId:
+                  type: number
+                  example: 2
+                rating:
+                  type: string
+                  example: '1'
+            examples:
+              create review:
+                value:
+                  comment: wehs
+                  productId: 2
+                  rating: '1'
+      responses:
+        '200':
+          description: ''
+  /api/v1/review/mine/:
+    get:
+      tags:
+        - review
+      summary: get my review (logged in user)
+      description: get my review (logged in user)
+      operationId: getMyReviewLoggedInUser
+      responses:
+        '200':
+          description: ''
+  /api/v1/review/product/{productiD}:
+    parameters: 
+    - name: productiD
+      in: path
+      description: product id
+      required: true
+      schema:
+        type: integer
+    get:
+      tags:
+        - review
+      summary: get product reviews
+      description: get product reviews
+      operationId: getProductReviews
+      responses:
+        '200':
+          description: ''
+    patch:
+      tags:
+        - review
+      summary: update review
+      description: update review
+      operationId: updateReview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: string
+                  example: '3'
+            examples:
+              update review:
+                value:
+                  rating: '3'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - review
+      summary: delete review
+      description: delete review
+      operationId: deleteReview
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      required:
+        - userName
+        - email
+        - role
+        - password
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the user
+        userName:
+          type: string
+          description: The user's unique username
+          minLength: 3
+          maxLength: 50
+          example: john_doe
+        email:
+          type: string
+          description: The user's unique email address
+          format: email
+          example: john@example.com
+        role:
+          type: string
+          enum:
+            - User
+            - Admin
+          description: Role of the user in the system
+          default: User
+        password:
+          type: string
+          description: User's password (hashed)
+          format: password
+          example: Password@123
+      example:
+        id: "a0b1c2d3-4e5f-6789-0abc-1de2f3456789"
+        userName: "john_doe"
+        email: "john@example.com"
+        role: "User"
+        password: "$2a$10$somethingHashed"
+    Product:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - stock
+        - categoryId
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the product
+          example: 1
+        name:
+          type: string
+          description: The name of the product
+          example: "Wireless Mouse"
+        description:
+          type: string
+          description: Detailed information about the product
+          example: "A high-quality wireless mouse with ergonomic design"
+        price:
+          type: number
+          format: decimal
+          description: Price of the product
+          example: 29.99
+        stock:
+          type: integer
+          description: Number of items available in stock
+          minimum: 0
+          example: 150
+        categoryId:
+          type: integer
+          description: ID of the category this product belongs to
+          example: 3
+      example:
+        id: 1
+        name: "Wireless Mouse"
+        description: "A high-quality wireless mouse with ergonomic design"
+        price: 29.99
+        stock: 150
+        categoryId: 3
+    Category:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the category
+          example: 1
+        name:
+          type: string
+          description: The name of the category
+          example: "Electronics"
+        description:
+          type: string
+          description: Detailed information about the category
+          example: "All kinds of electronic devices and gadgets"
+      example:
+        id: 1
+        name: "Electronics"
+        description: "All kinds of electronic devices and gadgets"
+    Cart:
+      type: object
+      required:
+        - userId
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the cart
+          example: 1
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier for the user who owns the cart
+          example: "a0b1c2d3-4e5f-6789-0abc-1de2f3456789"
+      example:
+        id: 1
+        userId: "a0b1c2d3-4e5f-6789-0abc-1de2f3456789"
+
+    CartItem:
+      type: object
+      required:
+        - cartId
+        - productId
+        - quantity
+      properties:
+        cartId:
+          type: integer
+          description: Unique identifier for the associated cart
+          example: 1
+        productId:
+          type: integer
+          description: Unique identifier for the product
+          example: 100
+        quantity:
+          type: integer
+          description: Number of products added to the cart
+          default: 1
+          example: 2
+      example:
+        cartId: 1
+        productId: 100
+        quantity: 2
+    Review:
+      type: object
+      required:
+        - userId
+        - productId
+        - rating
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the review
+          example: "f3c56a99-d799-447c-9f84-e49ac7653e28"
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier for the user who wrote the review
+          example: "a0b1c2d3-4e5f-6789-0abc-1de2f3456789"
+        productId:
+          type: integer
+          description: Unique identifier for the product being reviewed
+          example: 100
+        rating:
+          type: integer
+          description: Rating given to the product (from 1 to 5)
+          minimum: 1
+          maximum: 5
+          example: 4
+        comment:
+          type: string
+          description: The comment or review text left by the user
+          example: "Great product, very satisfied!"
+        createdAt:
+          type: string
+          format: date-time
+          description: When the review was created
+          example: "2024-10-03T10:00:00.000Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the review was last updated
+          example: "2024-10-03T10:30:00.000Z"
+        isVerified:
+          type: boolean
+          description: Whether the review has been verified
+          default: false
+          example: true
+        helpfulnessCount:
+          type: integer
+          description: Number of users who found the review helpful
+          default: 0
+          example: 15
+        response:
+          type: string
+          description: A response to the review from the product owner
+          example: "Thank you for your feedback!"
+        status:
+          type: string
+          enum:
+            - published
+            - pending
+            - reported
+          description: Status of the review
+          default: published
+          example: "published"
+      example:
+        id: "f3c56a99-d799-447c-9f84-e49ac7653e28"
+        userId: "a0b1c2d3-4e5f-6789-0abc-1de2f3456789"
+        productId: 100
+        rating: 4
+        comment: "Great product, very satisfied!"
+        createdAt: "2024-10-03T10:00:00.000Z"
+        updatedAt: "2024-10-03T10:30:00.000Z"
+        isVerified: true
+        helpfulnessCount: 15
+        response: "Thank you for your feedback!"
+        status: "published"
+
+security:
+  - bearerAuth: []
