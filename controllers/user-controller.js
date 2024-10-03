@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes')
-const { BadRequestError, UnauthenticatedError } = require('../errors')
+const { BadRequestError, UnauthenticatedError, UnauthorizedError } = require('../errors')
 const User = require('../models/user-model')
 
 const register = async (req, res) => {
@@ -48,6 +48,10 @@ const updateUser = async (req, res, next) => {
     } = req
     try {
         const user = await User.findByPk(userId);
+
+        if (user.role !== 'Admin' && req.body.role === 'Admin') {
+            throw new UnauthorizedError('Cant Modifying role. Admins only.');
+        }
 
         await user.update({ ...req.body });
 

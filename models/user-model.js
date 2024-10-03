@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require('sequelize');
 const { sequelize } = require('../db/connect-postgres');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -50,6 +50,12 @@ User.init(
             type: DataTypes.ENUM("User", "Admin"),
             allowNull: false,
             defaultValue: "User",
+            validate: {
+                isIn: {
+                    args: [["User", "Admin"]],
+                    msg: "Role must be either 'User' or 'Admin'.",
+                },
+            },
         },
         password: {
             type: DataTypes.STRING,
