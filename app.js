@@ -27,6 +27,7 @@ const adminRouter = require('./routes/admin-route');
 const productRouter = require('./routes/product-route');
 const categoryRouter = require('./routes/category-route');
 const cartRouter = require('./routes/cart-route');
+const reviewRouter = require('./routes/review-route');
 
 
 // error handler
@@ -53,6 +54,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 // routes
 app.use('/api/v1/admin', authenticateUser, adminAuth, adminRouter);
 app.use('/api/v1/cart/', authenticateUser, cartRouter);
+app.use('/api/v1/review/', authenticateUser, reviewRouter);
 // authentication middlewares inside route 
 app.use('/api/v1/product', productRouter);
 app.use('/api/v1/user', userRouter);
