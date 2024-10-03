@@ -4,6 +4,7 @@ const { Cart, CartItem } = require("./cart-model");
 const Category = require("./category-model");
 const Product = require("./product-model");
 const User = require("./user-model");
+const Review = require('./review-model');
 
 Cart.hasMany(CartItem, { foreignKey: "cartId" });
 CartItem.belongsTo(Cart, { foreignKey: "cartId" });
@@ -16,6 +17,12 @@ Product.belongsTo(Category, { foreignKey: "categoryId" });
 
 User.hasOne(Cart, { foreignKey: 'userId' });
 Cart.belongsTo(User, { foreignKey: 'userId' });
+
+Product.hasMany(Review, { foreignKey: 'productId' });
+Review.belongsTo(Product, { foreignKey: 'productId' });
+
+User.hasMany(Review, { foreignKey: 'userId' });
+Review.belongsTo(User, { foreignKey: 'userId' });
 
 // Sync models with the database
 const syncDatabase = async () => {
