@@ -2,8 +2,16 @@ const { StatusCodes } = require('http-status-codes')
 const { NotFoundError } = require('../errors')
 const User = require('../models/user-model')
 
-const getAllUsers = async (req, res) => {
+const getAllCustomers = async (req, res) => {
     const users = await User.findAll({ where: { role: "User" } });
+    if (!users) {
+        throw new NotFoundError('No users was found')
+    }
+    res.status(StatusCodes.CREATED).json({ users, "count": { count: users.length } })
+}
+
+const getAllAdmins = async (req, res) => {
+    const users = await User.findAll({ where: { role: "Admin" } });
     if (!users) {
         throw new NotFoundError('No users was found')
     }
@@ -55,5 +63,6 @@ module.exports = {
     getUser,
     deleteUser,
     updateUser,
-    getAllUsers
+    getAllAdmins,
+    getAllCustomers
 }
