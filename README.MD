@@ -9,6 +9,7 @@ The eCommerce API provides a secure and efficient backend solution for online sh
 - **Shopping Cart Functionality:** Allow users to add products to their cart, remove products, and manage their cart items easily.
 - **Product Browsing and Search:** Provide users the ability to view and search for products within the platform.
 - **Checkout and Payment:** Facilitate a smooth checkout process for users to pay for products securely through integrated payment gateways.
+- **Well-Documented Swagger Documentation:** Provides comprehensive API documentation for easy usage.
 ### Upcoming Features
 - Frontend integration for functionality
 - User checkout and payment processing with Stripe
