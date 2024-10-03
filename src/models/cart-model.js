@@ -1,4 +1,4 @@
-const { sequelize } = require('../db/connect-postgres');
+const { sequelize } = require('../config/connect-postgres');
 const { Model, DataTypes } = require('sequelize');
 
 class Cart extends Model { }

@@ -15,7 +15,7 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 const express = require('express');
 const app = express();
 
-const { connectPostgres } = require('./db/connect-postgres');
+const { connectPostgres } = require('./config/connect-postgres');
 const { syncDatabase } = require('./models/index')
 
 const authenticateUser = require('./middleware/authentication');

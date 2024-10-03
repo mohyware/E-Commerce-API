@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
-const { sequelize } = require('../db/connect-postgres');
+const { sequelize } = require('../config/connect-postgres');
 
 class Category extends Model { }
 

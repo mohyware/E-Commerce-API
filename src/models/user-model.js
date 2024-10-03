@@ -1,5 +1,5 @@
 const { DataTypes, Model, Sequelize } = require('sequelize');
-const { sequelize } = require('../db/connect-postgres');
+const { sequelize } = require('../config/connect-postgres');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
