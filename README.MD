@@ -20,7 +20,7 @@ This project is currently in development. Some features may not be fully impleme
 - Node.js
 - Express.js
 - Sequelize
-- PostgreSQL (or another database)
+- PostgreSQL
 - Redis (for caching)
 - Multer (for file uploads)
 
