@@ -7,12 +7,14 @@ const {
     createCategory,
     deleteCategory
 } = require('../controllers/category-controller');
-
+const authenticateJWT = require('../middleware/authentication');
+const adminAuth = require('../middleware/admin-authorization');
+//admin only
+router.post('/', authenticateJWT, adminAuth, createCategory);
+router.patch('/:categoryId', authenticateJWT, adminAuth, updateCategory);
+router.delete('/:categoryId', authenticateJWT, adminAuth, deleteCategory);
+//any user
 router.get('/', getAllCategories);
 router.get('/:categoryId', getCategory);
-//admin only
-router.post('/', createCategory);
-router.patch('/:categoryId', updateCategory);
-router.delete('/:categoryId', deleteCategory);
 
 module.exports = router;

@@ -19,6 +19,8 @@ const { connectPostgres } = require('./db/connect-postgres');
 const { syncDatabase } = require('./models/index')
 
 const authenticateUser = require('./middleware/authentication');
+const adminAuth = require('./middleware/admin-authorization');
+
 // routers
 const userRouter = require('./routes/user-route');
 const adminRouter = require('./routes/admin-route');
@@ -49,12 +51,12 @@ app.get('/', (req, res) => {
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
-app.use('/api/v1/user', userRouter);
-app.use('/api/v1/admin', adminRouter);
-app.use('/api/v1/product', productRouter);
-app.use('/api/v1/category', categoryRouter);
+app.use('/api/v1/admin', authenticateUser, adminAuth, adminRouter);
 app.use('/api/v1/cart/', authenticateUser, cartRouter);
-
+// authentication middlewares inside route 
+app.use('/api/v1/product', productRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/category', categoryRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

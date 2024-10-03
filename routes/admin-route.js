@@ -5,11 +5,11 @@ const {
     getUser,
     deleteUser,
     updateUser } = require('../controllers/admin-controller')
-const authenticateJWT = require('../middleware/authentication');
 
-router.get('/', authenticateJWT, getAllUsers);
-router.get('/:userId', authenticateJWT, getUser);
-router.patch('/:userId', authenticateJWT, updateUser);
-router.delete('/:userId', authenticateJWT, deleteUser);
+
+router.get('/', getAllUsers);
+router.get('/:userId', getUser);
+router.patch('/:userId', updateUser);
+router.delete('/:userId', deleteUser);
 
 module.exports = router
