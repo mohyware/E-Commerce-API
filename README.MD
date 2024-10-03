@@ -1,6 +1,6 @@
 # E-Commerce-APIs
 ## Overview
-The eCommerce API provides a secure and efficient backend solution for online shopping. It features JWT Authentication for user management, enabling sign-up, login, and profile access. The API supports CRUD operations for products, categories, and user accounts, while offering functionalities for product browsing and shopping cart management .Additionally, it allows users to leave reviews on products.
+The eCommerce API provides a secure and efficient backend solution for online shopping. It features JWT Authentication for user management, enabling sign-up, login, and profile access. The API supports CRUD operations for products, categories, and user accounts, while offering functionalities for product browsing and shopping cart management . Additionally, it allows users to leave reviews on products.
 ### Completed Features
 - **JWT Authentication:** Secure user interactions and data access using JSON Web Tokens to ensure that multiple users can authenticate and interact with the system seamlessly.
 - **CRUD Operations:** Implement simple Create, Read, Update, and Delete operations for managing products, categories, and user accounts.
