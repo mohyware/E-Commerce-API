@@ -7,7 +7,7 @@ const createCart = async (req, res) => {
         user: { userId },
     } = req
     const cart = await Cart.findOne({ where: { userId } });
-    if (!cart) {
+    if (cart) {
         throw new BadRequestError('This user already has an associated cart.');
     }
 
