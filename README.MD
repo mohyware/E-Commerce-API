@@ -42,15 +42,15 @@ Developed a RESTful API for an e-commerce platform, It features JWT Authenticati
     DB_HOST=localhost
     DB_DIALECT=postgres 
    ```
-4. **Run this command**
-### Just Start
-```bash
-npm run start
-```     
-### Development Mode
-```bash
-npm run dev
-```
+4. **To Run**
+   #### Just Start
+   ```bash
+   npm run start
+   ```     
+   #### Development Mode
+   ```bash
+   npm run dev
+   ```
 ## Usage
 * Access the API at http://localhost:4000/api/v1 using postman.
 * Or you can just use the Swagger documentation.
