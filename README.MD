@@ -42,11 +42,17 @@ The eCommerce API provides a secure and efficient backend solution for online sh
     DB_DIALECT=postgres 
    ```
 4. **Run this command**
-   ```bash
-   npm start
-   ```     
+### Just Start
+```bash
+npm run start
+```     
+### Development Mode
+```bash
+npm run dev
+```
 ## Usage
-    Access the API at http://localhost:3000/api/v1
+* Access the API at http://localhost:4000/api/v1 using postman.
+* Or you can just use the Swagger documentation.
 # API Endpoints
 ## Base URL
 `/api/v1`
