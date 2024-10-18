@@ -39,7 +39,7 @@ paths:
                 email:
                   type: string
                   example: mohy@gmail.com
-                name:
+                useruserName:
                   type: string
                   example: mohy
                 password:
@@ -49,7 +49,7 @@ paths:
               register:
                 value:
                   email: mohy@gmail.com
-                  name: mohy
+                  userName: mohy
                   password: '123456'
       responses:
         '200':
@@ -69,14 +69,14 @@ paths:
               properties:
                 email:
                   type: string
-                  example: moaaz@gmail.com
+                  example: mohy@gmail.com
                 password:
                   type: string
                   example: '123456'
             examples:
               login:
                 value:
-                  email: moaaz@gmail.com
+                  email: mohy@gmail.com
                   password: '123456'
       responses:
         '200':
@@ -108,7 +108,7 @@ paths:
                 email:
                   type: string
                   example: mohy@gmail.com
-                name:
+                userName:
                   type: string
                   example: mohy
                 password:
@@ -118,7 +118,7 @@ paths:
               update user:
                 value:
                   email: mohy@gmail.com
-                  name: mohy
+                  userName: mohy
                   password: '123456'
       responses:
         '200':
@@ -661,7 +661,6 @@ components:
       required:
         - userName
         - email
-        - role
         - password
       properties:
         id:
