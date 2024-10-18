@@ -1,14 +1,15 @@
 # E-Commerce-APIs
 ## Overview
-The eCommerce API provides a secure and efficient backend solution for online shopping. It features JWT Authentication for user management, enabling sign-up, login, and profile access. The API supports CRUD operations for products, categories, and user accounts, while offering functionalities for product browsing and shopping cart management .Additionally, it allows users to leave reviews on products.
+Developed a RESTful API for an e-commerce platform, It features JWT Authentication for user management, enabling sign-up, login, and profile access. The API supports CRUD operations for products, categories, and user accounts while offering functionalities for product browsing and shopping cart management. Additionally, it allows users to leave reviews on products.
 ### Completed Features
 - **JWT Authentication:** Secure user interactions and data access using JSON Web Tokens to ensure that multiple users can authenticate and interact with the system seamlessly.
 - **CRUD Operations:** Implement simple Create, Read, Update, and Delete operations for managing products, categories, and user accounts.
 - **Complex Data Model:** Support a comprehensive data model that accommodates products, shopping carts, user accounts, and reviews.
 - **User Account Management:** Enable users to sign up for an account and log in to access their profiles and purchase history.
-- **Shopping Cart Functionality:** Allow users to add products to their cart, remove products, and manage their cart items easily.
 - **Product Browsing and Search:** Provide users the ability to view and search for products within the platform.
-- **Checkout and Payment:** Facilitate a smooth checkout process for users to pay for products securely through integrated payment gateways.
+- **Shopping Cart Functionality:** Allow users to add products to their cart, remove products, and manage their cart items easily.
+- **Admin Panel:** Developed an admin interface for managing inventory, setting prices, and adding new products.
+- **Well-Documented Swagger Documentation:** Provides comprehensive API documentation for easy usage.
 ### Upcoming Features
 - Frontend integration for functionality
 - User checkout and payment processing with Stripe
